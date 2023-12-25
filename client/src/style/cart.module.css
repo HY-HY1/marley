@@ -1,0 +1,47 @@
+.container {
+    width: 50%;
+    min-height: 200px;
+    min-width: 00px;
+    padding-bottom: 10px;
+}
+
+.item {
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    padding: 20px;
+    border-radius: 20px;
+}
+
+.image img{
+    min-width: 50px;
+    width: 80%;
+}
+
+.cart {
+    display: grid;
+    grid-template-columns: 30% 70%;
+
+}
+
+.section {
+    width: 90%;
+    /* background-color: red; */
+}
+
+.product {
+    display: flex; 
+    justify-content: flex-start;
+    /* background-color: red; */
+    width: 100%;  
+    align-items: center;
+    height: 100%;
+}
+
+.product p {
+    padding: 20px;
+}
+
+.name {
+    min-width: 80px;
+    width: 25%;
+    background-color: red;
+}

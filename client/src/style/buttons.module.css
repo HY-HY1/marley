@@ -1,0 +1,9 @@
+.addToCart {
+    background-color: #333;
+    text-align: center;
+    width: 100%;
+    padding: 15px;
+    color: white;
+    border: none;
+    text-transform: uppercase;
+}

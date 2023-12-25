@@ -1,0 +1,32 @@
+/* product.module.css */
+
+.products {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(20%, 1fr)); /* Responsive grid with a minimum column width of 20% */
+    gap: 20px;
+  }
+  
+  @media screen and (max-width: 1000px) {
+    .products {
+      grid-template-columns: repeat(2, 1fr); 
+    }
+  }
+  
+  @media screen and (max-width: 400px) {
+    .products {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  .product {
+    padding: 15px; 
+  }
+  
+  .product img {
+    max-width: 100%; 
+  }
+  
+
+.text {
+    text-align: center;
+}

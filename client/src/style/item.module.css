@@ -1,0 +1,35 @@
+.container {
+    width: 60%;
+    /* background-color: red; */
+    display: grid;
+    grid-template-columns: 55% 45%;
+    gap: 10%    ;
+    margin: auto;
+}
+
+
+
+.half {
+    width: 95%;
+    height: 100%;
+    /* background-color: gainsboro; */
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    padding-top: 30px;
+}
+
+.selected img {
+    max-width: 100%;
+    min-width: 200px;
+}
+
+.imageGallery img {
+    width: 10%;
+    padding: 10px;
+    min-width: 50px;
+}
+
+.itemType {
+    text-transform: uppercase;
+}

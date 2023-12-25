@@ -1,0 +1,7 @@
+post http://localhost:3001/payment/checkout-session
+Content-Type: application/json 
+
+{
+    "amount": 3000,
+    "customerEmail":"hjyemm@icloud.com"
+}

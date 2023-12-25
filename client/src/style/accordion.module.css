@@ -1,0 +1,30 @@
+.container {
+    min-width: 200px;
+    width: 100%;
+    padding-bottom: 20px;
+  }
+  
+  .accordion {
+    width: 100%;
+    border-top: 1px solid rgb(205, 205, 205);
+    border-bottom: 1px solid rgb(205, 205, 205);
+    display: flex;
+    flex-direction: column; /* Updated to column layout */
+    align-items: flex-start; /* Align items to the start of the container */
+  }
+  
+  .accordionHeader {
+    display: flex;
+    justify-content: space-between; /* Space between title and caret */
+    cursor: pointer;
+  }
+  .accordionHeader span {
+    padding: 10px;
+    height: 100%;
+  }
+  
+  .accordionContent {
+    width: 100%;
+    padding-left: 20px; /* Add padding to indent content */
+  }
+  
