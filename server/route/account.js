@@ -76,14 +76,29 @@ account.post('/login', async (req,res) => {
     }
 })
 
-account.post('/delete', verifyToken, (req,res) => {
+account.post('/delete', verifyToken, async (req, res) => {
     try {
-        
+        const { email } = req.user;
+
+        // Find the user by email
+        const userToDelete = await User.findOne({ email });
+
+        if (!userToDelete) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        // Delete the user
+        const deletedUser = await User.findOneAndDelete({ email });
+
+        // You might want to check if deletedUser is null, indicating no user was found with that email.
+
+        res.status(200).json({ message: 'User deleted successfully', deletedUser });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: 'Internal server error' });          
+        res.status(500).json({ error: 'Internal server error' });
     }
-})
+});
+
 
 account.post('/dashboard', verifyToken, (req, res) => {
     try {
