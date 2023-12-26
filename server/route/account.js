@@ -76,6 +76,15 @@ account.post('/login', async (req,res) => {
     }
 })
 
+account.post('/delete', verifyToken, (req,res) => {
+    try {
+        
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal server error' });          
+    }
+})
+
 account.post('/dashboard', verifyToken, (req, res) => {
     try {
         // Access the decoded data from the JWT
