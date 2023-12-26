@@ -2,6 +2,6 @@ import React from 'react'
 
 export const Account = () => {
   return (
-    <div>Account</div>
+    <div>Thank you for your order</div>
   )
 }
