@@ -11,13 +11,21 @@ Content-Type: application/json
 
 {
     "name":"Harvey",
-    "email":"hjyemm2@icloud.com",
+    "email":"hjyemm3@icloud.com",
     "password":"h"
 }
 ###
 post http://localhost:3001/account/login
 Content-Type: application/json
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NThiNDg1NDY5ZDliNTM1NzFiMjBiMmMiLCJlbWFpbCI6ImhqeWVtbTJAaWNsb3VkLmNvbSIsIm5hbWUiOiJIYXJ2ZXkiLCJpYXQiOjE3MDM2MjY4MzYsImV4cCI6MTcwMzYzMDQzNn0.B36FT4HU6GQVCBmK4PeSKYqIzKDEwsVRbCxcZRhEF_A
+
+{
+
+}
+###
+post http://localhost:3001/account/delete
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NThiNThmMzI1ZmI2OGZiMTJmMGJmOTEiLCJlbWFpbCI6ImhqeWVtbTNAaWNsb3VkLmNvbSIsIm5hbWUiOiJIYXJ2ZXkiLCJpYXQiOjE3MDM2MzEwOTEsImV4cCI6MTcwMzYzNDY5MX0.7egbd9pRLgTk2hw1o7cJu0wuxFDy7q74hTUUiq-8Srg
 
 {
 
