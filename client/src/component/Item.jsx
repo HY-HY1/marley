@@ -5,7 +5,6 @@ import Accordion from './Accordion'; // Import your Accordion component
 import Style from '../style/item.module.css'; // Import your CSS module
 import { useShop } from '../context/ShopContext';
 import Button from '../style/buttons.module.css'
-
 export const Item = () => {
   const [item, setItem] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
