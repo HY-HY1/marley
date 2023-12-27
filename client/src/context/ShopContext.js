@@ -38,6 +38,7 @@ export const ShopContextProvider = ({ children }) => {
 
   const clearCart = () => {
     setCartItems([]);
+    localStorage.setItem('cartItems', null)
   };
 
   const isInCart = (itemId) => {

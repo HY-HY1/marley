@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Style from '../style/navbar.module.css'
 import PDM from '../assets/PDMLogo.avif'
 import { Link } from 'react-router-dom'
 import { User, MagnifyingGlass, Bag  } from 'phosphor-react'
+import { Search } from './Search'
 
 export const Navbar = () => {
+  const [ searchVisible , setSearchVisible ] = useState(false)
   return (
     <>
         <div className={Style.container}>
@@ -22,7 +24,7 @@ export const Navbar = () => {
                 <div className={Style.icons}>
                   <ul>
                     <li><Link to={'/account'}><User size={24}/></Link></li>
-                    <li><MagnifyingGlass size={24}/></li>
+                    <li><MagnifyingGlass onClick={() => setSearchVisible(!searchVisible)} size={24}/></li>
                     <li><Link to={'/Cart'}><Bag size={24}/></Link></li>
                   </ul>
                 </div>
@@ -46,11 +48,12 @@ export const Navbar = () => {
                   <Link>Body Line</Link>
                 </li>
                 <li>
-                  <Link>Maiso</Link>
+                  <Link>Maison</Link>
                 </li>
               </ul>
             </div>
           </div>
+          <Search visible={searchVisible}></Search>
         </div>
     </>
   )

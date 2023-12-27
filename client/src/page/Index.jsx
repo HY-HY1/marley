@@ -7,7 +7,7 @@ export const Index = () => {
     <>
         <div>
             <Products/>
-            <button><a href="/cart">Cart</a></button>
+            
         </div>
     </>
   )

@@ -1,7 +1,15 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Button } from '../component/Button'
+import { useShop } from '../context/ShopContext'
 
 export const Success = () => {
+
+  const { clearCart } = useShop()
+
+  useEffect(() => {
+    clearCart()
+  })
+
   const handleClick = () => {
     
   }

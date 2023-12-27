@@ -3,8 +3,21 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
 
 const app = express();
+
+app.use(
+    bodyParser.json({
+        verify: function(req, res, buf) {
+            req.rawBody = buf;
+        }
+    })
+);
+
+app.use(bodyParser.json());
+app.use(bodyParser.raw({ type: 'application/json' }));
+
 
 app.use(express.json());
 app.use(cors());
