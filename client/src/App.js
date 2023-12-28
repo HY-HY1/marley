@@ -11,10 +11,12 @@ import { Account } from "./page/Account";
 import { Navbar } from "./component/Navbar";
 import { Success } from "./page/Success";
 import { SearchResult } from "./page/SearchResult";
+import { AsideProvider } from "./context/AsideContext";
 
 function App() {
   return (
     <div className="App">
+        <AsideProvider>
         <ShopContextProvider>
           <ProductProvider>
             <Router>
@@ -31,6 +33,7 @@ function App() {
             </Router>
           </ProductProvider>
         </ShopContextProvider>
+        </AsideProvider>
     </div>
   );
 }
