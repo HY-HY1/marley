@@ -1,10 +1,10 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
-import Accordion from './Accordion'; // Import your Accordion component
-import Style from '../style/item.module.css'; // Import your CSS module
+import Accordion from './Accordion';
+import Style from '../style/item.module.css';
 import { useShop } from '../context/ShopContext';
-import Button from '../style/buttons.module.css'
+import Button from '../style/buttons.module.css';
 import { useAside } from '../context/AsideContext';
 
 export const Item = () => {
@@ -14,14 +14,14 @@ export const Item = () => {
   const queryParams = new URLSearchParams(search);
   const id = queryParams.get('id');
   const { addToCart } = useShop();
-  const { showAside } = useAside()
+  const { showAside } = useAside();
 
   useEffect(() => {
     const fetchItem = async () => {
       try {
         const response = await axios.get(`http://localhost:3001/product/${id}`);
         setItem(response.data[0]);
-        setSelectedImage(response.data[0].description.type.images[0])
+        setSelectedImage(response.data[0].description.type.images[0]);
       } catch (error) {
         console.error(error);
       }
@@ -29,34 +29,37 @@ export const Item = () => {
     fetchItem();
   }, [id]);
 
-  console.log(selectedImage)
+  const handleAddToCart = () => {
+    addToCart(item.id, item.price);
+    showAside(); // Show the aside when adding to the cart
+  };
 
   return (
     <div>
       {item ? (
         <>
           <div className={Style.container}>
-          <div className={Style.half}>
-            {item.description && item.description.type && item.description.type.images && (
-              <div className={Style.images}>
-                {selectedImage && (
-                  <div className={Style.selected}>
-                    <img src={selectedImage} alt="Main" className={Style.mainImage} />
+            <div className={Style.half}>
+              {item.description && item.description.type && item.description.type.images && (
+                <div className={Style.images}>
+                  {selectedImage && (
+                    <div className={Style.selected}>
+                      <img src={selectedImage} alt="Main" className={Style.mainImage} />
+                    </div>
+                  )}
+                  <div className={Style.imageGallery}>
+                    {item.description.type.images.map((image, index) => (
+                      <img
+                        key={index}
+                        src={image}
+                        alt={`${index}`}
+                        onClick={() => setSelectedImage(image)}
+                        className={selectedImage === image ? Style.mainImage : ''}
+                      />
+                    ))}
                   </div>
-                )}
-                <div className={Style.imageGallery}>
-                  {item.description.type.images.map((image, index) => (
-                    <img
-                      key={index}
-                      src={image}
-                      alt={`${index}`}
-                      onClick={() => setSelectedImage(image)}
-                      className={selectedImage === image ? Style.mainImage : ''}
-                    />
-                  ))}
                 </div>
-              </div>
-            )}            
+              )}
             </div>
             <div className={Style.half}>
               <div className={Style.halfContainer}>
@@ -66,7 +69,9 @@ export const Item = () => {
                   <p className={Style.itemPrice}>{item.price}£</p>
                 </div>
                 <div className={Style.addToCartButton}>
-                  <button className={Button.addToCart} onClick={() => addToCart(item.id, item.price)}>Add to Cart</button>
+                  <button className={Button.addToCart} onClick={handleAddToCart}>
+                    Add to Cart
+                  </button>
                 </div>
                 <div className={Style.accordion}>
                   <Accordion title={'Description'} content={item.description.type.description} />
@@ -89,11 +94,7 @@ export const Item = () => {
                 </div>
               </div>
             </div>
-        </div>
-
-
-
-
+          </div>
         </>
       ) : (
         <p>Loading...</p>
