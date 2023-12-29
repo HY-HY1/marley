@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from '../style/buttons.module.css';
+import { Link } from 'react-router-dom';
 
 export const Button = ({
   isDisabled,
@@ -8,15 +9,18 @@ export const Button = ({
   variant,
   isLoading,
   text,
+  link,
   ...props
 }) => {
   const buttonClasses = `${styles.button} ${styles[size]} ${styles[variant]} ${isLoading ? styles.loading : ''} ${props.className || ''}`;
 
   return (
-    <button disabled={isDisabled} onClick={onClick} {...props} className={buttonClasses}>
+    <Link to={link || null}>
+      <button disabled={isDisabled} onClick={onClick} {...props} className={buttonClasses}>
       <React.Fragment>
         <p>{text}</p>
       </React.Fragment>
     </button>
+    </Link>
   );
 };
