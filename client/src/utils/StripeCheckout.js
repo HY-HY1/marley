@@ -2,6 +2,7 @@ import React from 'react';
 import { loadStripe } from '@stripe/stripe-js';
 import axios from 'axios';
 import { useShop } from '../context/ShopContext';
+import { Button } from '../component/Button';
 
 const stripePromise = loadStripe('pk_test_51NHl9gEobVR8O8G7xgMInVUrKXqtt5rFDEJzgvsnA2eETCRyQluaBjiZsThAkdY3VSVOyYO05DHhM9JjMvsJlqVY00tiO0Ddki');
 
@@ -39,7 +40,15 @@ export const StripeCheckout = ({ id, quantity, amount }) => {
 
   return (
     <div>
-      <button onClick={handleCheckout} >Checkout with Stripe</button>
+      <Button
+        isDisabled={false}
+        onClick={handleCheckout}
+        size="medium"
+        variant="primary"
+        isLoading={false}
+        text="Checkout"
+        className="additionalClass"
+      />
     </div>
   );
 };
