@@ -17,7 +17,7 @@ payment.post('/checkout-session', async (req, res) => {
             price_data: {
               currency: 'GBP',
               product_data: {
-                name: 'productName', // Use the actual product name here
+                name: 'Parfums De Marley', // Use the actual product name here
               },
               unit_amount: amount,
             },
