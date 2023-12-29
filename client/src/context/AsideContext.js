@@ -5,18 +5,26 @@ import { Aside } from '../component/Aside';
 const AsideContext = createContext();
 
 export const AsideProvider = ({ children }) => {
-  const [isAsideVisible, setIsAsideVisible] = useState(true);
+  const [isAsideVisible, setIsAsideVisible] = useState(false);
 
   const showAside = () => {
     setIsAsideVisible(true);
   };
+
+  const showAsideTimout = () => {
+    setIsAsideVisible(true)
+    // setInterval(() => {
+    //   setIsAsideVisible(false)
+    // }, 10000)
+  }
+
 
   const hideAside = () => {
     setIsAsideVisible(false);
   };
 
   return (
-    <AsideContext.Provider value={{ isAsideVisible, showAside, hideAside }}>
+    <AsideContext.Provider value={{ isAsideVisible, showAside, hideAside, showAsideTimout }}>
       <Aside/>
       {children}
     </AsideContext.Provider>

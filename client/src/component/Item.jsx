@@ -5,6 +5,8 @@ import Accordion from './Accordion'; // Import your Accordion component
 import Style from '../style/item.module.css'; // Import your CSS module
 import { useShop } from '../context/ShopContext';
 import Button from '../style/buttons.module.css'
+import { useAside } from '../context/AsideContext';
+
 export const Item = () => {
   const [item, setItem] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
@@ -12,6 +14,7 @@ export const Item = () => {
   const queryParams = new URLSearchParams(search);
   const id = queryParams.get('id');
   const { addToCart } = useShop();
+  const { showAside } = useAside()
 
   useEffect(() => {
     const fetchItem = async () => {

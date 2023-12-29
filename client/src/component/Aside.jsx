@@ -7,9 +7,6 @@ import { useAside } from '../context/AsideContext';
 export const Aside = () => {
   const { isAsideVisible, hideAside } = useAside();
 
-  useEffect(() => {
-    
-  })
 
   return (
     <React.Fragment>

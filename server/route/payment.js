@@ -66,16 +66,25 @@ payment.post('/webhook', (request, response) => {
     case 'payment_intent.succeeded':
       const paymentIntentSucceeded = event.data.object;
 
-      // Check if the necessary properties exist
+      // Check if the necessary properties existr
 
-        console.log('Incomplete paymentIntentSucceeded object structure:', paymentIntentSucceeded);
-        
+        const { name, email, status } = paymentIntentSucceeded.shipping;
+
+        console.log(`Name: ${name}`);
+        console.log(paymentIntentSucceeded.shipping.address)
+        console.log(`Email: ${email}`);
+        console.log(`Payment Status: ${status}`)
+
+        // console.log('Incomplete paymentIntentSucceeded object structure:', paymentIntentSucceeded );
+
+        // console.log(`Customer Details \n Name ${paymentIntentSucceeded.customer_details.name} \n Email ${paymentIntentSucceeded.customer_details.email}`)
+        // console.log(`Shipping \n ${paymentIntentSucceeded.customer_details.address} `)
+        // console.log(`Payment Status \n ${paymentIntentSucceeded.payment_status} `)
       break;
     // ... handle other event types
     default:
       console.log(`Unhandled event type ${event.type}`);
   }
-
   // Return a 200 response to acknowledge receipt of the event
   response.send();
 });

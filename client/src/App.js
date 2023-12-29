@@ -16,10 +16,10 @@ import { AsideProvider } from "./context/AsideContext";
 function App() {
   return (
     <div className="App">
+      <Router>
+      <ShopContextProvider>
         <AsideProvider>
-        <ShopContextProvider>
           <ProductProvider>
-            <Router>
               <Navbar/>
               <Routes>
                 <Route path='/' element={<Index/>}></Route>
@@ -30,10 +30,11 @@ function App() {
                 <Route path="/success" element={<Success/>}></Route>
                 <Route path="/search" element={<SearchResult/>}></Route>
               </Routes>
-            </Router>
           </ProductProvider>
-        </ShopContextProvider>
         </AsideProvider>
+        </ShopContextProvider>
+        </Router>
+        
     </div>
   );
 }

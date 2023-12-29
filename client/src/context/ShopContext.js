@@ -1,10 +1,13 @@
 // ShopContext.js
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { useAside } from './AsideContext';
 
 const ShopContext = createContext();
 
 export const ShopContextProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
+
+  const { showAsideTimout } = useAside()
 
   const localCartItems = localStorage.getItem('cartItems');
 
@@ -20,12 +23,17 @@ export const ShopContextProvider = ({ children }) => {
   const addToCart = (itemId, itemPrice) => {
     setCartItems((prevItems) => {
       const itemIndex = prevItems.findIndex((item) => item.id === itemId);
-  
+
+      showAsideTimout()
+      
+
       if (itemIndex !== -1) {
         const updatedItems = [...prevItems];
         updatedItems[itemIndex] = { id: itemId, quantity: updatedItems[itemIndex].quantity + 1, price: itemPrice };
+
         return updatedItems;
       }
+      
   
       return [...prevItems, { id: itemId, quantity: 1, price: itemPrice }];
     });
