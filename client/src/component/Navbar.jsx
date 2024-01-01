@@ -23,7 +23,7 @@ export const Navbar = () => {
               <div className={Style.item}>
                 <div className={Style.icons}>
                   <ul>
-                    <li><Link to={'/account'}><User size={24}/></Link></li>
+                    <li><Link to={'/auth'}><User size={24}/></Link></li>
                     <li><MagnifyingGlass onClick={() => setSearchVisible(!searchVisible)} size={24}/></li>
                     <li><Link to={'/Cart'}><Bag size={24}/></Link></li>
                   </ul>
