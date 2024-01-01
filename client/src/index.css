@@ -1,18 +1,26 @@
+/* Define the custom font using @font-face */
+@font-face {
+  font-family: 'Basker';
+  src: url(assets/fonts/LibreBaskerville-Regular.ttf);
+}
+
+/* Root styles */
+html:root {
+  --PrimaryFont: 'Basker', sans-serif;
+  --PrimaryColor: #333; /* Set your primary text color */
+  --BackgroundColor: #fff; /* Set your background color */
+}
+
+/* Apply root styles to the body */
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  overflow-x:hidden ;
+  font-family: var(--PrimaryFont);
+  color: var(--PrimaryColor);
+  background-color: var(--BackgroundColor);
+  overflow-x: hidden;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
-
+/* Reset anchor styles */
 a {
   color: inherit;
   text-decoration: none;
