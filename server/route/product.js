@@ -28,4 +28,25 @@ product.get('/:id', async (req, res) => {
 });
 
 
+product.post('/search', async (req, res) => {
+  try {
+    const { name } = req.body;
+
+    if(!name) {
+        return
+    }
+
+    // Define your regex pattern for the name property
+    const nameRegex = new RegExp(name, 'i'); // 'i' for case-insensitive
+
+    // Use the regex in a Mongoose query
+    const products = await Product.find({ name: nameRegex });
+
+    res.status(200).json({ products });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
+
 module.exports = product;
