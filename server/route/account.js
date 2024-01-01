@@ -8,10 +8,16 @@ const verifyToken = require('../middleware/verifyToken');
 
 account.post('/register', async (req, res) => {
     try {
-        const { email, password, name } = req.body;
+        const { email, password, name } = req.body.creds;
 
         if (!email || !password) {
             return res.status(400).json({ error: 'Fields are missing' });
+        }
+
+        const existingUser = await User.findOne({ email: email })
+
+        if(existingUser) {
+            return res.status(401).json('User already exists')
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
@@ -43,9 +49,11 @@ account.post('/register', async (req, res) => {
 
 account.post('/login', async (req,res) => {
     try{
-        const { email, password } = req.body;
+        const { email, password } = req.body.creds;
 
-        if(!email || password) {
+        console.log(email, password)
+
+        if(!email) {
             return res.status(404).json({error: 'Fields are missing'})
         }
 
