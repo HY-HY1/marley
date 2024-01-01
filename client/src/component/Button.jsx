@@ -1,26 +1,34 @@
-import React from 'react';
-import styles from '../style/buttons.module.css';
+import React from 'react'
 import { Link } from 'react-router-dom';
+import styles from '../style/buttons.module.css';
 
 export const Button = ({
-  isDisabled,
-  onClick,
-  size,
-  variant,
-  isLoading,
-  text,
-  link,
-  ...props
+    text,
+    onClick,
+    link,
+    variant,
+    size,
+    isDisabled,
+    ...props
 }) => {
-  const buttonClasses = `${styles.button} ${styles[size]} ${styles[variant]} ${isLoading ? styles.loading : ''} ${props.className || ''}`;
+    
+    const buttonClasses = `${styles.button} ${styles[size]} ${styles[variant]}`;
 
-  return (
-    <Link to={link || null}>
-      <button disabled={isDisabled} onClick={onClick} {...props} className={buttonClasses}>
-      <React.Fragment>
-        <p>{text}</p>
-      </React.Fragment>
-    </button>
-    </Link>
-  );
-};
+    return (
+        <React.Fragment>
+            <Link to={link}>
+                <div>
+                    <button
+                    disabled={isDisabled}
+                    onClick={onClick}
+                    {...props}
+                    className={buttonClasses}
+                    >
+                        {text}
+                    </button>
+                </div>
+            </Link>
+        </React.Fragment>
+    )
+
+}
