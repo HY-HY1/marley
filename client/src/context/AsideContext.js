@@ -11,20 +11,13 @@ export const AsideProvider = ({ children }) => {
     setIsAsideVisible(true);
   };
 
-  const showAsideTimout = () => {
-    setIsAsideVisible(true)
-    // setInterval(() => {
-    //   setIsAsideVisible(false)
-    // }, 10000)
-  }
-
 
   const hideAside = () => {
     setIsAsideVisible(false);
   };
 
   return (
-    <AsideContext.Provider value={{ isAsideVisible, showAside, hideAside, showAsideTimout }}>
+    <AsideContext.Provider value={{ isAsideVisible, showAside, hideAside }}>
       <Aside/>
       {children}
     </AsideContext.Provider>
