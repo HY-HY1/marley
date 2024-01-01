@@ -12,6 +12,8 @@ import { Navbar } from "./component/Navbar";
 import { Success } from "./page/Success";
 import { SearchResult } from "./page/SearchResult";
 import { AsideProvider } from "./context/AsideContext";
+import { Auth } from "./utils/Auth";
+import { Dashboard } from "./page/Dashboard";
 
 function App() {
   return (
@@ -26,9 +28,11 @@ function App() {
                 <Route path='/product' element={<undefined/>}></Route>
                 <Route path='/product/:name' element={<Item/>}></Route>
                 <Route path='/cart' element={<Cart/>}></Route>
-                <Route path="/account" element={<Account/>}></Route>
                 <Route path="/success" element={<Success/>}></Route>
                 <Route path="/search" element={<SearchResult/>}></Route>
+                <Route path="/auth" element={<Auth/>}></Route>
+                <Route path="/account" element={<Account/>}></Route>
+                <Route path="/dashboard" element={<Dashboard/>}></Route>
               </Routes>
           </ProductProvider>
         </AsideProvider>
