@@ -12,6 +12,11 @@ payment.post('/checkout-session', async (req, res) => {
       // Create a Stripe Checkout session
       const session = await stripe.checkout.sessions.create({
         payment_method_types: ['card'],
+        billing_address_collection: 'auto',
+        shipping_options: [
+          { 'shipping_rate' : 'shr_1OTtWJEobVR8O8G7fZgxA5V2'},
+          { 'shipping_rate' : 'shr_1OTtWiEobVR8O8G7PIa30PYh'}
+        ], 
         line_items: [
           {
             price_data: {
@@ -26,7 +31,7 @@ payment.post('/checkout-session', async (req, res) => {
         ],
         customer_email: customerEmail, // Use the provided customer email
         client_reference_id: `order_UK12345`,
-        billing_address_collection: 'auto',
+       
         shipping_address_collection: {
           allowed_countries: ['GB'],
         },
