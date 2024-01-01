@@ -24,7 +24,7 @@ export const Products = () => {
               </div>
             )}
             <div className={Style.text}>
-            <h3>{product.name}</h3>
+            <h3>{product.name.toLowerCase()}</h3>
             <p>£{product.price}</p>
             </div>
           </div>
