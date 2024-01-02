@@ -7,6 +7,9 @@ import { Button } from '../component/Button';
 const stripePromise = loadStripe('pk_test_51NHl9gEobVR8O8G7xgMInVUrKXqtt5rFDEJzgvsnA2eETCRyQluaBjiZsThAkdY3VSVOyYO05DHhM9JjMvsJlqVY00tiO0Ddki');
 
 export const StripeCheckout = ({ id, quantity, amount }) => {
+
+  const { cartItems } = useShop()
+
   const handleCheckout = async () => {
     const stripe = await stripePromise;
 
@@ -14,7 +17,7 @@ export const StripeCheckout = ({ id, quantity, amount }) => {
     try {
       const response = await axios.post(
         'http://localhost:3001/payment/checkout-session',
-        { amount: amount * 100 }, // Change this for production
+        { amount: amount * 100, quantity: quantity, products: cartItems }, // Change this for production
         {
           headers: {
             'Content-Type': 'application/json',
