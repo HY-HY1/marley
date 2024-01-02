@@ -2,49 +2,49 @@ const express = require('express');
 const payment = express.Router()
 const stripe = require('stripe')(process.env.STRIPE_PRIVATE);
 const bodyParser = require('body-parser');
+const Product = require('../model/product')
+
 
 
 payment.post('/checkout-session', async (req, res) => {
-    const { amount, productName, customerEmail, billing_address_collection, quantity } = req.body;
-    console.log(amount)
-  
-    try {
-      // Create a Stripe Checkout session
-      const session = await stripe.checkout.sessions.create({
-        payment_method_types: ['card'],
-        billing_address_collection: 'auto',
-        shipping_options: [
-          { 'shipping_rate' : 'shr_1OTtWJEobVR8O8G7fZgxA5V2'},
-          { 'shipping_rate' : 'shr_1OTtWiEobVR8O8G7PIa30PYh'}
-        ], 
-        line_items: [
-          {
-            price_data: {
-              currency: 'GBP',
-              product_data: {
-                name: 'Parfums De Marley', // Use the actual product name here
-              },
-              unit_amount: amount,
-            },
-            quantity: 1,
+  const { products } = req.body;
+
+  try {
+    // Fetch product details based on product IDs
+    const productDetails = await Product.find({ id: { $in: products.map(p => p.id) } });
+
+    // Create a Stripe Checkout session
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ['card'],
+      billing_address_collection: 'auto',
+      shipping_options: [
+        { shipping_rate: 'shr_1OTtWJEobVR8O8G7fZgxA5V2' },
+        { shipping_rate: 'shr_1OTtWiEobVR8O8G7PIa30PYh' },
+      ],
+      line_items: productDetails.map((product, index) => ({
+        price_data: {
+          currency: 'GBP',
+          product_data: {
+            name: product.name,
           },
-        ],
-        customer_email: customerEmail, // Use the provided customer email
-        client_reference_id: `order_UK12345`,
-       
-        shipping_address_collection: {
-          allowed_countries: ['GB'],
+          unit_amount: product.price * 100, // Convert to cents
         },
-        mode: 'payment',
-        success_url: `http://localhost:3000/success`,
-        cancel_url: `http://localhost:3000/cart`,
-      });
-  
-      res.json({ id: session.id,  });
-    } catch (error) {
-      res.status(500).json({ error: error.message });
-    }
-  });
+        quantity: products[index].quantity || 1, // Default to 1 if quantity is not provided
+      })),
+      client_reference_id: `order_UK12345`,
+      shipping_address_collection: {
+        allowed_countries: ['GB'],
+      },
+      mode: 'payment',
+      success_url: `http://localhost:3000/success`,
+      cancel_url: `http://localhost:3000/cart`,
+    });
+
+    res.json({ id: session.id });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
 
   const endpointSecret = "whsec_4ef1eccaef59526d87e3ebcb7e979004e3782f32b2e1baaf2deb7f36388f49a0";
 
@@ -71,20 +71,9 @@ payment.post('/webhook', (request, response) => {
     case 'payment_intent.succeeded':
       const paymentIntentSucceeded = event.data.object;
 
-      // Check if the necessary properties existr
+      console.log('ReqBody',request.body)
+      console.log('Event Data \n', event.data)
 
-        const { name, email, status } = paymentIntentSucceeded.shipping;
-
-        console.log(`Name: ${name}`);
-        console.log(paymentIntentSucceeded.shipping.address)
-        console.log(`Email: ${email}`);
-        console.log(`Payment Status: ${status}`)
-
-        // console.log('Incomplete paymentIntentSucceeded object structure:', paymentIntentSucceeded );
-
-        // console.log(`Customer Details \n Name ${paymentIntentSucceeded.customer_details.name} \n Email ${paymentIntentSucceeded.customer_details.email}`)
-        // console.log(`Shipping \n ${paymentIntentSucceeded.customer_details.address} `)
-        // console.log(`Payment Status \n ${paymentIntentSucceeded.payment_status} `)
       break;
     // ... handle other event types
     default:
