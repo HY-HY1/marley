@@ -119,7 +119,7 @@ account.post('/dashboard', verifyToken, (req, res) => {
         
         // Your login logic goes here
         // For example, you can send a response with the email and name
-        res.status(200).json({ message: 'Login successful', email, name });
+        res.status(200).json({ User: { email, name } });
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Internal server error' });
