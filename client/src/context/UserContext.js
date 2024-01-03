@@ -6,6 +6,8 @@ const UserContext = createContext()
 
 export const UserProvider = ({ children }) => {
     const [ user, setUser ] = useState([])
+    const [ customerId, setCustomerId ] = useState('')
+    const [ paymentIds , setPaymentIds ] = useState('')
 
     const token = localStorage.getItem('token')
     useEffect(() => {
@@ -35,12 +37,80 @@ export const UserProvider = ({ children }) => {
             }
         }
         fetchUser()
-    }, [])
+        const fetchStripeCustomer = async () => {
+            
+            try {
+                const response = await axios.post(
+                    'http://localhost:3001/stripe/customers',
+                    {},
+                    {
+                        headers: {
+                            Authorization: token
+                        }
+                    }
+                    )
+                    if(response > 203) {
+                        return
+                    }
+                    console.log(response.data.data[0].id)
+                    localStorage.setItem('customerId', response.data.data[0].id)
+                    setCustomerId(response.data.data[0].id)
+            } catch (error) {
+
+            }
+        }
+        fetchStripeCustomer()
+        const fetchPaymentId = async () => {
+            const localCustomerId = localStorage.getItem('customerId');
+            try {
+                const response = await axios.get(
+                    'http://localhost:3001/stripe/checkout-sessions',
+                    { customerId: localCustomerId },
+                    {}
+                );
+                if (response.status >= 203) {
+                    return;
+                }
+
+                console.log('Server response:', response.data);
+
+                setPaymentIds(response.data.checkoutId); // Ensure to extract the correct property
+            } catch (error) {
+                console.error('Error fetching payment IDs:', error);
+            }
+        };
+        fetchPaymentId();
+
+    }, []);
+
+    useEffect(() => {
+        const fetchOrders = async () => {
+            if (!paymentIds || paymentIds.length === 0) {
+                console.log('No payment ID');
+                return;
+            }
+
+            try {
+                const response = await axios.post(
+                    'http://localhost:3001/stripe/items',
+                    { checkoutIds: paymentIds }
+                );
+
+                console.log(response);
+            } catch (error) {
+                console.error('Error fetching orders:', error);
+            }
+        };
+
+        fetchOrders();
+
+    }, [paymentIds]);
 
 
 
     const contextValue = {
         user,
+        customerId
     }
 
     return (
