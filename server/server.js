@@ -41,9 +41,9 @@ const URI = process.env.URI;
 const product = require('./route/product')
 const payment = require('./route/payment')
 const account = require('./route/account')
-const order = require('./route/orders')
+const stripe = require('./route/stripe')
 
 app.use('/product', product)
 app.use('/payment', payment)
 app.use('/account', account)
-app.use('/order', order)
+app.use('/stripe', stripe)
