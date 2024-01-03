@@ -31,5 +31,21 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NThiNThmMzI1
 
 }
 ###
-POST http://localhost:3001/order
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTk0N2ZmM2I3OWE1ZjQ2YzRhZjRjMTMiLCJlbWFpbCI6ImhqeWVtbUBpY2xvdWQuY29tIiwibmFtZSI6IkhhcnZleSIsImlhdCI6MTcwNDIzMDg5OSwiZXhwIjoxNzA0MjM0NDk5fQ.38lbkySTaBSPu8C_MsiKWdQXImixu-M3cA7Ok23_b7g
+POST http://localhost:3001/stripe
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhqeWVtbUBpY2xvdWQuY29tIiwibmFtZSI6IkhhcnZleSIsImlhdCI6MTcwNDI4NDM4OCwiZXhwIjoxNzA0MzcwNzg4fQ.hGggHmIT5z-keLqrCvZFkHimQTI4OknuQegnyXAaE0M
+###
+POST http://localhost:3001/stripe/customers 
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhqeWVtbUBpY2xvdWQuY29tIiwibmFtZSI6IkhhcnZleSIsImlhdCI6MTcwNDI4NDM4OCwiZXhwIjoxNzA0MzcwNzg4fQ.hGggHmIT5z-keLqrCvZFkHimQTI4OknuQegnyXAaE0M
+###
+POST http://localhost:3001/stripe/checkout-sessions 
+
+{
+    "customerId": "cus_PIrmdCNNkpOlt7"
+}
+
+###
+POST http://localhost:3001/stripe/items
+
+{
+    
+}
