@@ -30,3 +30,6 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NThiNThmMzI1
 {
 
 }
+###
+POST http://localhost:3001/order
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTk0N2ZmM2I3OWE1ZjQ2YzRhZjRjMTMiLCJlbWFpbCI6ImhqeWVtbUBpY2xvdWQuY29tIiwibmFtZSI6IkhhcnZleSIsImlhdCI6MTcwNDIzMDg5OSwiZXhwIjoxNzA0MjM0NDk5fQ.38lbkySTaBSPu8C_MsiKWdQXImixu-M3cA7Ok23_b7g
