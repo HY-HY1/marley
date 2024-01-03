@@ -30,7 +30,7 @@ export const Form = ({ postURL, inputs }) => {
             }
         } 
         );
-        if(response.status !==200) {
+        if(response.status > 203) {
           console.log('Bad Response')
           return 
         }
