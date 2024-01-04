@@ -4,12 +4,29 @@ const stripe = require('stripe')(process.env.STRIPE_PRIVATE);
 const bodyParser = require('body-parser');
 const Product = require('../model/product')
 const Order = require('../model/order')
+const verifyToken = require('../middleware/verifyToken')
 
 
-payment.post('/checkout-session', async (req, res) => {
-  const { products } = req.body;
+payment.post('/checkout-session', verifyToken, async (req, res) => {
+  const { products, customerId } = req.body;
+  const { email, name } = req.user
 
   try {
+    let customer;
+
+    // Check if a customer ID is provided
+    if (customerId) {
+      // Retrieve customer information from Stripe
+      customer = await stripe.customers.retrieve(customerId);
+      console.log(customer)
+    } else {
+      // Create a new customer if no customer ID is provided
+      customer = await stripe.customers.create({
+        email: email,
+        name: name
+      });
+    }
+
     // Fetch product details based on product IDs
     const productDetails = await Product.find({ id: { $in: products.map(p => p.id) } });
 
@@ -29,14 +46,13 @@ payment.post('/checkout-session', async (req, res) => {
           },
           unit_amount: product.price * 100, // Convert to cents
         },
-        quantity: products[index].quantity || 1, // Default to 1 if quantity is not provided
-      })),  
-      // client_reference_id: `order_UK12345`,
+        quantity: products[index].quantity || 1,
+      })),
       shipping_address_collection: {
         allowed_countries: ['GB'],
       },
       mode: 'payment',
-      customer_creation : 'always',
+      customer: customerId || customer.id, // Use the retrieved or newly created customer ID
       success_url: `http://localhost:3000/success`,
       cancel_url: `http://localhost:3000/cart`,
     });
@@ -46,6 +62,7 @@ payment.post('/checkout-session', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+
 
 
 
