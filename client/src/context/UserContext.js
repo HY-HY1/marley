@@ -37,81 +37,31 @@ export const UserProvider = ({ children }) => {
             }
         }
         fetchUser()
-        const fetchStripeCustomer = async () => {
-            
-            try {
-                const response = await axios.post(
-                    'http://localhost:3001/stripe/customers',
-                    {},
-                    {
-                        headers: {
-                            Authorization: token
-                        }
-                    }
-                    )
-                    if(response > 203) {
-                        console.log('Bad Response')
-                        return
-                    }
-                    console.log('Customer Id',response.data.customers.data[0].id)
-                    localStorage.setItem('customerId', response.data.customers.data[0].id)
-                    setCustomerId(response.data.customers.data[0].id)
-            } catch (error) {
-                console.log(error)
-            }
-        }
-        fetchStripeCustomer()
-        const fetchPaymentId = async () => {
-            const localCustomerId = localStorage.getItem('customerId');
-            try {
-                const response = await axios.get(
-                    'http://localhost:3001/stripe/checkout-sessions',
-                    { customerId: localCustomerId },
-                    {}
-                );
-                if (response.status >= 203) {
-                    return;
-                }
-
-                console.log('Server response:', response.data);
-
-                setPaymentIds(response.data.checkoutId); // Ensure to extract the correct property
-            } catch (error) {
-                console.error('Error fetching payment IDs:', error);
-            }
-        };
-        fetchPaymentId();
-
     }, []);
 
     useEffect(() => {
-        const fetchOrders = async () => {
-            if (!paymentIds || paymentIds.length === 0) {
-                console.log('No payment ID');
-                return;
-            }
-
+        const fetchSession = async () => {
             try {
-                const response = await axios.post(
-                    'http://localhost:3001/stripe/items',
-                    { checkoutIds: paymentIds }
-                );
-
-                console.log(response);
+                
             } catch (error) {
-                console.error('Error fetching orders:', error);
+
             }
-        };
+        }
+        fetchSession()
+    })
 
-        fetchOrders();
-
-    }, [paymentIds]);
-
+    const logout = () => {
+        localStorage.removeItem('token')
+        localStorage.removeItem('customerId')
+        setCustomerId(null)
+        setPaymentIds(null)
+    }
 
 
     const contextValue = {
         user,
-        customerId
+        customerId,
+        logout
     }
 
     return (
