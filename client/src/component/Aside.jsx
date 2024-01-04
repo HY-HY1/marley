@@ -11,7 +11,7 @@ export const Aside = () => {
   const { isAsideVisible, hideAside } = useAside();
   const { cartItems, removeFromCart } = useShop();
 
-  console.log(cartItems)
+  // console.log(cartItems)
 
   const gotoCheckout = () => {
     window.location.href = '/cart'
@@ -38,7 +38,7 @@ export const Aside = () => {
               <Button
                 onClick={gotoCheckout}
                 isDisabled={false}
-                size="small"
+                size="m"
                 variant="primary"
                 isLoading={false}
                 text="Checkout"
@@ -49,7 +49,7 @@ export const Aside = () => {
                 <Button
                 onClick={hideAside}
                 isDisabled={false}
-                size="small"
+                size="m"
                 variant="primary"
                 isLoading={false}
                 text="Continue Shopping"
