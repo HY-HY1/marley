@@ -50,13 +50,14 @@ export const UserProvider = ({ children }) => {
                     }
                     )
                     if(response > 203) {
+                        console.log('Bad Response')
                         return
                     }
-                    console.log(response.data.data[0].id)
-                    localStorage.setItem('customerId', response.data.data[0].id)
-                    setCustomerId(response.data.data[0].id)
+                    console.log('Customer Id',response.data.customers.data[0].id)
+                    localStorage.setItem('customerId', response.data.customers.data[0].id)
+                    setCustomerId(response.data.customers.data[0].id)
             } catch (error) {
-
+                console.log(error)
             }
         }
         fetchStripeCustomer()
