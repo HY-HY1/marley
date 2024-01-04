@@ -38,7 +38,7 @@ account.post('/register', async (req, res) => {
             // Add any other non-sensitive information here
         };
 
-        const token = jwt.sign(jwtPayload, process.env.JWT_PRIVATE, { expiresIn: '1h' });
+        const token = jwt.sign(jwtPayload, process.env.JWT_PRIVATE, { expiresIn: '365d' });
 
         res.status(201).json({ message: 'Registration successful', token });
     } catch (error) {
@@ -74,7 +74,7 @@ account.post('/login', async (req,res) => {
             name: foundUser.name
         }
 
-        const token = jwt.sign(tokenPayload, process.env.JWT_PRIVATE, { expiresIn: '24h' });
+        const token = jwt.sign(tokenPayload, process.env.JWT_PRIVATE, { expiresIn: '365d' });
 
         res.json({message: 'Login Successfully', token: token, Payload: tokenPayload})
 
